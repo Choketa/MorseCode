@@ -34,16 +34,17 @@ namespace MorseCode
                     {
                     player2.PlaySync();
                 }
+                else if (arr[i] == ' ') Thread.Sleep(200);
                 else if (arr[i] == '/') Thread.Sleep(1000);
 
             }
 
 
         }
-        //Thanks for a special lad who made it easier
+        //Thanks to a special lad who made it easier
         private static string ToMorse(string str)
         {
-            str = str.ToLower();
+            str = str.ToLower().Replace(" ", "/ ");
             return str.Replace("a", ".- ")
                 .Replace("b", "-... ")
                 .Replace("c", "-.-. ")
@@ -79,8 +80,7 @@ namespace MorseCode
                 .Replace("7", "--... ")
                 .Replace("8", "---.. ")
                 .Replace("9", "----. ")
-                .Replace("0", "----- ")
-                .Replace(" ", "/ ");
+                .Replace("0", "----- ");
 
         }
         //https://stackoverflow.com/questions/11150332/how-to-change-foreground-color-of-each-letter-in-a-string-in-c-sharp-console
