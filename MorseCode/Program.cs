@@ -12,8 +12,8 @@ namespace MorseCode
     {
         static void Main(string[] args)
         {
-            System.Media.SoundPlayer player = new System.Media.SoundPlayer(@"c:\Users\jonat\Downloads\long.wav");
-            System.Media.SoundPlayer player2 = new System.Media.SoundPlayer(@"c:\Users\jonat\Downloads\short.wav");
+            System.Media.SoundPlayer player = new System.Media.SoundPlayer(@"c:\Users\jonat\source\repos\MorseCode\MorseCode\Sounds\long.wav");
+            System.Media.SoundPlayer player2 = new System.Media.SoundPlayer(@"c:\Users\jonat\source\repos\MorseCode\MorseCode\Sounds\short.wav");
             Console.WriteLine("Input a string to convert to morse:");
             string str = Console.ReadLine();
             string morsified = ToMorse(str);
@@ -24,6 +24,7 @@ namespace MorseCode
             for (int i = 0; i < arr.Length; i++)
             {
                 Console.Clear();
+                Console.WriteLine("Original Message: "+str);
                 WriteLineWithColoredLetter(morsified, arr, i);
                 if (arr[i] == '-')
                 {
