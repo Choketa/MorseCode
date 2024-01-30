@@ -1,12 +1,6 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics.Eventing.Reader;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace MorseCode
 {
@@ -16,7 +10,11 @@ namespace MorseCode
         {
             System.Media.SoundPlayer player = new System.Media.SoundPlayer(@"c:\Users\jonat\source\repos\MorseCode\MorseCode\Sounds\long.wav");
             System.Media.SoundPlayer player2 = new System.Media.SoundPlayer(@"c:\Users\jonat\source\repos\MorseCode\MorseCode\Sounds\short.wav");
-            Console.WriteLine("Morse or Binary? (M for morse and B for binary or K for both)");
+            Console.WriteLine("Morse or Binary? (M for text -> morse, " +
+                "\nB for text -> binary, " +
+                "\nT for binary -> text, " +
+                "\nK for text -> binary -> morse, " +
+                "\nC for binary -> text -> morse)");
             char choice = char.Parse(Console.ReadLine());
             if (choice == 'M')
             {
@@ -31,6 +29,12 @@ namespace MorseCode
                 string str = ToBinary(Console.ReadLine());
                 Console.WriteLine(str);
             }
+            else if (choice == 'T')
+            {
+                Console.WriteLine("Input binary to string:");
+                string str = ToString(Console.ReadLine());
+                Console.WriteLine(str);
+            }
             else if (choice == 'K')
             {
                 Console.WriteLine("Input a string to binary and then to morse:");
@@ -38,12 +42,24 @@ namespace MorseCode
                 string binariedMorsified = ToMorse(ToBinary(str));
                 MorseReader(binariedMorsified, str, player, player2, true);
             }
+            else if (choice == 'C')
+            {
+                Console.WriteLine("Input a binary string to text and then to morse:");
+                string str = Console.ReadLine();
+                string textified = ToString(str);
+                string textifiedMorse = ToMorse(textified);
+                MorseReader(textifiedMorse, textified, player, player2, false);
+            }
         }
                
-        //Thanks to a special lad who made it easier
+        //Thanks to a special lad who made it easier 😉
         private static string ToMorse(string str)
         {
-            str = str.ToLower().Replace(" ", "/ ");
+            str = str.ToLower().Replace(" ", "/ ")
+                .Replace(".", ".-.-.- ")
+                .Replace("?", "..--.. ")
+                .Replace(",", "--..-- ")
+                .Replace("!", "-.-.-- ");
             return str.Replace("a", ".- ")
                 .Replace("b", "-... ")
                 .Replace("c", "-.-. ")
@@ -80,8 +96,8 @@ namespace MorseCode
                 .Replace("8", "---.. ")
                 .Replace("9", "----. ")
                 .Replace("0", "----- ");
-
         }
+       
         private static string ToBinary(string str)
         {
             char[] chars = str.ToCharArray();
@@ -111,6 +127,30 @@ namespace MorseCode
             }
             return newStr;
         }
+        private static string ToString(string binary)
+        {
+            //Doubling method
+            int asciiVal = 0;
+            char[] arr = binary.ToCharArray();
+            string str = string.Empty;
+            for (int i = 0; i < arr.Length; i++)
+            {
+                if (arr[i] == ' ')
+                {
+                    str += (char)asciiVal;
+                    asciiVal = 0;
+                } 
+                else if (i == arr.Length-1)
+                {
+                    asciiVal = asciiVal * 2 + (arr[i] - '0');
+                    str += (char)asciiVal;
+                }
+                else
+                asciiVal = asciiVal * 2 + (arr[i]-'0');
+            }
+            return str;
+
+        }
         private static void ShowCharacter(string str, int i)
         {
             char[] arr = str.ToCharArray();
@@ -134,7 +174,6 @@ namespace MorseCode
         private static void MorseReader(string morsified, string str, System.Media.SoundPlayer player, System.Media.SoundPlayer player2, bool isBinarified)
         {
             char[] arr = morsified.ToCharArray();
-            string[] strArr = morsified.Split(' ');
             string binary = "";
             int count = 0, binaryCount = 0;
 
