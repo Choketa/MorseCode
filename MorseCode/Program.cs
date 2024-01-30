@@ -11,11 +11,6 @@ namespace MorseCode
         {
             System.Media.SoundPlayer player = new System.Media.SoundPlayer(@"c:\Users\jonat\source\repos\MorseCode\MorseCode\Sounds\long.wav");
             System.Media.SoundPlayer player2 = new System.Media.SoundPlayer(@"c:\Users\jonat\source\repos\MorseCode\MorseCode\Sounds\short.wav");
-            Console.WriteLine("Morse or Binary? (M for text -> morse, " +
-                "\nB for text -> binary, " +
-                "\nT for binary -> text, " +
-                "\nK for text -> binary -> morse, " +
-                "\nC for binary -> text -> morse)");
             Console.WriteLine("Morse or Binary? (M for morse and B for binary or K for both)");
             char choice = char.Parse(Console.ReadLine());
             if (choice == 'M')
