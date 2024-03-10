@@ -1,0 +1,1 @@
+A very cool console program that takes your input, whether it be in latin letters, morse or even binary and then it does whatever you instruct it to do. Pretty cool I guess. Well you instruct it first then input yeah! 
