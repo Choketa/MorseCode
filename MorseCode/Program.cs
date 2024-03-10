@@ -9,44 +9,67 @@ namespace MorseCode
     {
         static void Main(string[] args)
         {
-            System.Media.SoundPlayer player = new System.Media.SoundPlayer(@"c:\Users\jonat\source\repos\MorseCode\MorseCode\Sounds\long.wav");
-            System.Media.SoundPlayer player2 = new System.Media.SoundPlayer(@"c:\Users\jonat\source\repos\MorseCode\MorseCode\Sounds\short.wav");
+
+            System.Media.SoundPlayer player = new System.Media.SoundPlayer(@"c:\Users\username\source\repos\MorseCode\MorseCode\Sounds\long.wav");
+            System.Media.SoundPlayer player2 = new System.Media.SoundPlayer(@"c:\Users\username\source\repos\MorseCode\MorseCode\Sounds\short.wav");
+            Console.WriteLine("Morse or Binary? (M for text -> morse, " +
+                "\nB for text -> binary, " +
+                "\nT for binary -> text, " +
+                "\nK for text -> binary -> morse, " +
+                "\nC for binary -> text -> morse)");
             Console.WriteLine("Morse or Binary? (M for morse and B for binary or K for both)");
             char choice = char.Parse(Console.ReadLine());
-            if (choice == 'M')
+            switch (choice)
             {
-                Console.WriteLine("Input a string to convert to morse:");
-                string str = Console.ReadLine();
-                string morsified = ToMorse(str);
-                MorseReader(morsified, str, player, player2, false);
+                case 'M':
+                    {
+                        Console.WriteLine("Input a string to convert to morse:");
+                        string str = Console.ReadLine();
+                        string morsified = ToMorse(str);
+                        MorseReader(morsified, str, player, player2, false);
+                        break;
+                    }
+                case 'B': 
+                    {
+                        Console.WriteLine("Input string to binary:");
+                        string str = ToBinary(Console.ReadLine());
+                        Console.WriteLine(str);
+                        break;
+                    }
+                case 'T':
+                    {
+                        Console.WriteLine("Input binary to string:");
+                        string str = ToString(Console.ReadLine());
+                        Console.WriteLine(str);
+                        break;
+                    }
+                case 'K':
+                    {
+                        Console.WriteLine("Input a string to binary and then to morse:");
+                        string str = Console.ReadLine();
+                        string binariedMorsified = ToMorse(ToBinary(str));
+                        MorseReader(binariedMorsified, str, player, player2, true);
+                        break;
+                    }
+                case 'C':
+                    {
+                        Console.WriteLine("Input a binary string to text and then to morse:");
+                        string str = Console.ReadLine();
+                        string textified = ToString(str);
+                        string textifiedMorse = ToMorse(textified);
+                        MorseReader(textifiedMorse, textified, player, player2, false);
+                        break;
+                    }
+                default:
+                    {
+                        Console.WriteLine("Access Denied. Go boom.");
+                        break;
+                    }
+
+
+
             }
-            else if (choice == 'B')
-            {
-                Console.WriteLine("Input string to binary:");
-                string str = ToBinary(Console.ReadLine());
-                Console.WriteLine(str);
-            }
-            else if (choice == 'T')
-            {
-                Console.WriteLine("Input binary to string:");
-                string str = ToString(Console.ReadLine());
-                Console.WriteLine(str);
-            }
-            else if (choice == 'K')
-            {
-                Console.WriteLine("Input a string to binary and then to morse:");
-                string str = Console.ReadLine();
-                string binariedMorsified = ToMorse(ToBinary(str));
-                MorseReader(binariedMorsified, str, player, player2, true);
-            }
-            else if (choice == 'C')
-            {
-                Console.WriteLine("Input a binary string to text and then to morse:");
-                string str = Console.ReadLine();
-                string textified = ToString(str);
-                string textifiedMorse = ToMorse(textified);
-                MorseReader(textifiedMorse, textified, player, player2, false);
-            }
+            
         }
                
         //Thanks to a special lad who made it easier 😉
@@ -191,23 +214,31 @@ namespace MorseCode
                 else ShowCharacter(str, binaryCount);
                 if (isBinarified) ShowCharacter(binary, count);
                 WriteLineWithColoredLetter(morsified, arr, i);
-                if (arr[i] == '-')
+                switch (arr[i])
                 {
-                    player.PlaySync();
-                }
-                else if (arr[i] == '.')
-                {
-                    player2.PlaySync();
-                }
-                else if (arr[i] == ' ')
-                {
-                    count++;
-                    Thread.Sleep(200);
-                }
-                else if (arr[i] == '/')
-                {
-                    if (isBinarified) binaryCount++;
-                    Thread.Sleep(1000);
+                    case '-':
+                        {
+                            player.PlaySync();
+                            break;
+                        }
+                    case '.':
+                        {
+                            player2.PlaySync();
+                            break;
+                        }
+                    case ' ':
+                        {
+                            count++;
+                            Thread.Sleep(200);
+                            break;
+                        }
+                    case '/':
+                        {
+                            if (isBinarified) binaryCount++;
+                            Thread.Sleep(1000);
+                            break;
+                        }
+
                 }
             }
         }
