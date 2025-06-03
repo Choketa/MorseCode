@@ -120,14 +120,13 @@ namespace MorseCode
        
         private static string ToBinary(string str)
         {
-            char[] chars = str.ToCharArray();
             int j = 0, remainder, count=0;
             string newStr = "", tempStr = "";
             char intToChar;
             Stack<char> stack = new Stack<char>();
-            for (int i = 0; i < chars.Length; i++)
+            for (int i = 0; i < str.Length; i++)
             {
-                j = chars[i];
+                j = str[i];
                 while (j != 0)
                 {
                     remainder = j % 2;
@@ -142,7 +141,7 @@ namespace MorseCode
                     tempStr += stack.Pop();
                 }
                 newStr += "0" + tempStr;
-                if (i < chars.Length - 1) newStr += " ";
+                if (i < str.Length - 1) newStr += " ";
                 tempStr = "";
             }
             return newStr;
@@ -151,32 +150,30 @@ namespace MorseCode
         {
             //Doubling method
             int asciiVal = 0;
-            char[] arr = binary.ToCharArray();
             string str = string.Empty;
-            for (int i = 0; i < arr.Length; i++)
+            for (int i = 0; i < binary.Length; i++)
             {
-                if (arr[i] == ' ')
+                if (binary[i] == ' ')
                 {
                     str += (char)asciiVal;
                     asciiVal = 0;
                 } 
                 else if (i == arr.Length-1)
                 {
-                    asciiVal = asciiVal * 2 + (arr[i] - '0');
+                    asciiVal = asciiVal * 2 + (binary[i] - '0');
                     str += (char)asciiVal;
                 }
                 else
-                asciiVal = asciiVal * 2 + (arr[i]-'0');
+                asciiVal = asciiVal * 2 + (binary[i]-'0');
             }
             return str;
 
         }
         private static void ShowCharacter(string str, int i)
         {
-            char[] arr = str.ToCharArray();
             Console.Write(str.Substring(0, i));
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.Write(arr[i]);
+            Console.Write(str[i]);
             Console.ResetColor();
             Console.Write(str.Substring(i + 1));
             Console.WriteLine();
