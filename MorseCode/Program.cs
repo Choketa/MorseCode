@@ -9,7 +9,7 @@ namespace MorseCode
     {
         static void Main(string[] args)
         {
-
+            //Change file path accordingly!
             System.Media.SoundPlayer player = new System.Media.SoundPlayer(@"c:\Users\username\source\repos\MorseCode\MorseCode\Sounds\long.wav");
             System.Media.SoundPlayer player2 = new System.Media.SoundPlayer(@"c:\Users\username\source\repos\MorseCode\MorseCode\Sounds\short.wav");
             Console.WriteLine("Morse or Binary? (M for text -> morse, " +
