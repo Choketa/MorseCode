@@ -17,7 +17,6 @@ namespace MorseCode
                 "\nT for binary -> text, " +
                 "\nK for text -> binary -> morse, " +
                 "\nC for binary -> text -> morse)");
-            Console.WriteLine("Morse or Binary? (M for morse and B for binary or K for both)");
             char choice = char.Parse(Console.ReadLine());
             switch (choice)
             {
