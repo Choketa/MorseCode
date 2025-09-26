@@ -157,7 +157,7 @@ namespace MorseCode
                     str += (char)asciiVal;
                     asciiVal = 0;
                 } 
-                else if (i == arr.Length-1)
+                else if (i == binary.Length-1)
                 {
                     asciiVal = asciiVal * 2 + (binary[i] - '0');
                     str += (char)asciiVal;
